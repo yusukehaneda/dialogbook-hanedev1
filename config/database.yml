@@ -81,18 +81,16 @@ test:
 production:
   primary: &primary_production
     <<: *default
-    database: dialogbook3_production
-    username: dialogbook3
-    password: <%= ENV["DIALOGBOOK3_DATABASE_PASSWORD"] %>
+    # Fly.io 環境では DATABASE_URL 環境変数が自動で設定される（fly postgres attach 後）
+    # ローカルや他の環境では DB_HOST / DIALOGBOOK3_DATABASE_PASSWORD を直接指定
+    url: <%= ENV["DATABASE_URL"].presence ||
+           "postgres://dialogbook3:#{ENV['DIALOGBOOK3_DATABASE_PASSWORD']}@#{ENV.fetch('DB_HOST', 'db')}/dialogbook3_production" %>
   cache:
     <<: *primary_production
-    database: dialogbook3_production_cache
     migrations_paths: db/cache_migrate
   queue:
     <<: *primary_production
-    database: dialogbook3_production_queue
     migrations_paths: db/queue_migrate
   cable:
     <<: *primary_production
-    database: dialogbook3_production_cable
     migrations_paths: db/cable_migrate

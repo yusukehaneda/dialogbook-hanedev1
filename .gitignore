@@ -9,6 +9,7 @@
 
 # Ignore all environment files.
 /.env*
+!/.env.docker
 
 # Ignore all logfiles and tempfiles.
 /log/*
@@ -35,3 +36,23 @@
 
 /app/assets/builds/*
 !/app/assets/builds/.keep
+
+# Fly.io / Docker 関連（ローカル環境固有）
+/docker/*
+/docker-compose.yml
+
+# VS Code ワークスペースファイル（個人設定）
+*.code-workspace
+
+# 仕様書・移行ドキュメント（リポジトリ管理対象外）
+/doc/
+/DLB3_spec_20251020.txt
+/DLB3_spec_20251020.pdf
+Migrate_Flyio.md
+
+# Windows 固有
+Thumbs.db
+Desktop.ini
+
+# macOS 固有
+.DS_Store

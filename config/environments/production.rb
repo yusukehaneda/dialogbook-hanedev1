@@ -87,4 +87,16 @@ Rails.application.configure do
   #
   # Skip DNS rebinding protection for the default health check endpoint.
   # config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
+
+  # Fly.io ホスト名の許可
+  config.hosts << "dialogbook-main-dev-billowing-haze-8597.fly.dev"
+  # ローカル Docker 環境（production モード）でも動かす場合
+  config.hosts << "localhost"
+  # カスタムドメイン
+  config.hosts << "dialogbook-dev.lahm.work"
+  # カスタムドメインを追加する場合はここに追記
+  # config.hosts << "your-custom-domain.example.com"
+
+  # Fly.io 内部ヘルスチェック（Consul）は IP アドレスで /up にアクセスするため除外する
+  config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
 end

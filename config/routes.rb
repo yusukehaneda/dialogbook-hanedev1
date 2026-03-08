@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
   root "home#index"
 
+  # Fly.io ヘルスチェック用エンドポイント
+  get "up" => "rails/health#show", as: :rails_health_check
+
   # auth0 settings
   get "/auth/:provider/callback", to: "sessions#create"
   get "/auth/failure", to: "sessions#failure"
